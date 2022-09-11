@@ -1,0 +1,340 @@
+* Test 1
+        behaviors:
+        Bridge:
+          trainer_type: ppo
+          hyperparameters:
+            batch_size: 128
+            buffer_size: 2048
+            learning_rate: 0.0003
+            beta: 0.005
+            epsilon: 0.2
+            lambd: 0.95
+            num_epoch: 8
+            learning_rate_schedule: linear
+          network_settings:
+            normalize: true
+            hidden_units: 256
+            num_layers: 2
+            vis_encode_type: simple
+          reward_signals:
+            extrinsic:
+              gamma: 0.99
+              strength: 1.0  
+            curiosity:
+              gamma: 0.99
+              strength: 0.02
+              gamma: 0.99
+              network_settings:
+                hidden_units: 256
+              learning_rate: 0.0003
+          max_steps: 5000001
+          time_horizon: 64
+          summary_freq: 10000
+          
+        Rewards:
+            Boton +1
+            Goal: +4
+            Fail: -1
+            
+        Observaciones:            
+            Target (x,y,z)
+            Bridge (bool)
+            Bridge (z) ** hasta el test 4 estaba puesta la z del button
+            button (x,y,z)
+            Agent  (x,y,z)
+            Agent Vel (x)
+            Agent Vel (z)
+          
+        Settings:           
+            UseRandomAgentPosition = true;
+            UseRandomAgentRotation = true;
+            UseRandomButtonPosition = false;
+            UseRandomBridgePosition = false;
+            UseRandomGoalPosition = false;
+        
+         ** Mean Reward 4.9~ achieved at 200.000**  
+        
+        -200000 steps: 
+            UseRandomGoalPosition = true;
+         ** Mean Startet at 2.446 **
+         ** Mean Reward 4.9~ achieved **  
+        
+        - 400000 steps: 
+            UseRandomButtonPosition = true;
+         ** Mean Startet at 0.697 **
+         ** Mean Reward 4.7~ achieved **  
+            
+        - 800000 steps: 
+            UseRandomBridgePosition = true;
+         ** Mean Startet at 1.847 **
+         ** Mean Reward x.xx~ achieved **  
+
+        - 3.26M steps: 
+            Add Penalty Each Step: -1-MaxStep;
+         ** Mean Startet at 1.847 **
+         ** Mean Reward 4.5~ achieved **  
+         
+         ** Desde aqui hasta llegar a los 5M callo en picado **, 
+         ** como estaba el numero de checkpoints en 5, no se guardaron los cerebros buenos, y solo tenemos a partir de 3.5M **
+
+* Test 2:
+    - repetir entrenamiento y parar cuando al tener todo random se consiga mas de un 4 de mean reward.
+
+* Test 3:
+    - añadir recompensas al cruzar el puente  
+    - modificar raycast: 
+    - añadir camara
+    - establecer maxstep 25000
+    - empezar con agent random pos,rot = false
+    ** algo mas lento de entrenar, intervalo de 10000 steps se nota mas largo (de 40s a 108s * intervalo), pero parece converger antes**
+        ** Mean Reward 4.9~ achieved at 70.000**  
+        
+    -90000 steps: 
+        UseRandomAgentPosition = true;
+        UseRandomAgentRotation = true;
+
+        ** Mean Startet at 3.268 **
+        ** Mean Reward 4.9~ achieved at 120.000 **  
+        
+    - 150.000 steps: 
+        UseRandomButtonPosition = true;
+        ** Mean Startet at 3.737 **
+        ** Mean Reward 4.5~ achieved at 240.000 **  
+            
+    - 320.000 steps, episode lenght 76 : 
+        UseRandomGoalPosition = true;
+        ** Mean Startet at 3.87 **
+        ** episode lenght pikes up an then goes back **
+        ** Mean Reward 4.6~ achieved at 360.000, episode lenght 85 **
+        ** Mean Reward 4.8~ achieved at 400.000, episode lenght 80 **
+        ** stopped and resumed at 420.000 to gain a little bit of curiosity **
+        ** Mean Reward 4.9~ achieved at 460.000, episode lenght 57 **
+
+    - 500.000 steps:
+        UseRandomBridgePosition = true;
+        Step: 690000. Time Elapsed: 1721.432 s. Mean Reward: 3.912. Std of Reward: 1.855. Training.
+        [INFO] Bridge. Step: 510000. Time Elapsed: 91.155 s. Mean Reward: 2.667. Std of Reward: 2.494. Training. episode lenght 81 **
+        [INFO] Bridge. Step: 520000. Time Elapsed: 186.965 s. Mean Reward: 3.107. Std of Reward: 2.410. Training.
+        [INFO] Bridge. Step: 530000. Time Elapsed: 273.453 s. Mean Reward: 2.175. Std of Reward: 2.469. Training.
+        [INFO] Bridge. Step: 540000. Time Elapsed: 364.947 s. Mean Reward: 3.140. Std of Reward: 2.438. Training. episode lenght 193 **
+        [INFO] Bridge. Step: 550000. Time Elapsed: 456.908 s. Mean Reward: 3.208. Std of Reward: 2.318. Training.
+        [INFO] Bridge. Step: 560000. Time Elapsed: 547.157 s. Mean Reward: 3.839. Std of Reward: 1.919. Training. episode lenght 178 **
+        [INFO] Bridge. Step: 570000. Time Elapsed: 638.586 s. Mean Reward: 3.234. Std of Reward: 2.390. Training.
+        [INFO] Bridge. Step: 580000. Time Elapsed: 724.812 s. Mean Reward: 4.280. Std of Reward: 1.613. Training. episode lenght 211 **
+        [INFO] Bridge. Step: 590000. Time Elapsed: 820.593 s. Mean Reward: 3.538. Std of Reward: 2.004. Training.
+        [INFO] Bridge. Step: 600000. Time Elapsed: 914.898 s. Mean Reward: 3.552. Std of Reward: 2.143. Training.
+        [INFO] Bridge. Step: 610000. Time Elapsed: 1009.258 s. Mean Reward: 3.449. Std of Reward: 2.295. Training.
+        [INFO] Bridge. Step: 620000. Time Elapsed: 1091.052 s. Mean Reward: 3.526. Std of Reward: 2.023. Training.
+        [INFO] Bridge. Step: 630000. Time Elapsed: 1180.995 s. Mean Reward: 3.941. Std of Reward: 1.939. Training.
+        [INFO] Bridge. Step: 640000. Time Elapsed: 1269.670 s. Mean Reward: 3.854. Std of Reward: 1.893. Training.
+        [INFO] Bridge. Step: 650000. Time Elapsed: 1361.330 s. Mean Reward: 3.500. Std of Reward: 2.156. Training.
+        [INFO] Bridge. Step: 660000. Time Elapsed: 1452.252 s. Mean Reward: 4.077. Std of Reward: 1.615. Training.
+        [INFO] Bridge. Step: 670000. Time Elapsed: 1535.147 s. Mean Reward: 3.395. Std of Reward: 2.103. Training.
+        [INFO] Bridge. Step: 680000. Time Elapsed: 1628.363 s. Mean Reward: 4.143. Std of Reward: 1.767. Training.
+        [INFO] Bridge. Step: 690000. Time Elapsed: 1721.432 s. Mean Reward: 3.912. Std of Reward: 1.855. Training.
+        [INFO] Bridge. Step: 700000. Time Elapsed: 1814.753 s. Mean Reward: 3.925. Std of Reward: 1.821. Training.
+        [INFO] Bridge. Step: 710000. Time Elapsed: 1908.694 s. Mean Reward: 3.696. Std of Reward: 2.024. Training.
+
+        ** Mean Reward x.xx~ achieved **  
+
+* Test 4:
+    - 3.26M steps:
+        Add Penalty Each Step: -1/MaxStep
+        [INFO] Bridge. Step: 320000. Time Elapsed: 39.663 s. Mean Reward: 4.826. Std of Reward: 0.362. Training.
+        [INFO] Bridge. Step: 330000. Time Elapsed: 130.830 s. Mean Reward: 4.704. Std of Reward: 0.850. Training.
+        [INFO] Bridge. Step: 340000. Time Elapsed: 225.288 s. Mean Reward: 4.731. Std of Reward: 0.809. Training.
+        [INFO] Bridge. Step: 350000. Time Elapsed: 318.098 s. Mean Reward: 4.516. Std of Reward: 1.168. Training.
+        [INFO] Bridge. Step: 360000. Time Elapsed: 410.845 s. Mean Reward: 4.394. Std of Reward: 1.385. Training.
+        [INFO] Bridge. Step: 370000. Time Elapsed: 497.142 s. Mean Reward: 4.188. Std of Reward: 1.538. Training.
+
+********************
+***** Pruebas ******
+********************
+    - añadir penalty each stap with randombutton para que desde esa etapa vaya mas rapido?   
+    - quitar raycast y probar solo con camara, aunque para detectar distancias probablemente venga bien mantener algunos rays
+
+* Test x:
+    UseRandomAgentPosition = true;
+    UseRandomAgentRotation = true;
+    UseRandomButtonPosition = true;
+    UseRandomBridgePosition = true;
+    UseRandomGoalPosition = true;
+
+* Test x+1:
+    - test 4 + imitation learning (GAIL)
+    empezar con 0.7 e ir disminuyendo
+    ** parece que no aprenda **
+ 
+    
+* Probar a entrenar desde el principio con puente y agente random. Recompensa max 1, minimo -1    
+* Probar diferentes diseños del agente para ver cual va mejor: con-sin camara, diferentes numero de raycast.
+*
+*
+*
+*
+*
+*
+
+test 1:
+    behaviors:
+      Bridge:
+        trainer_type: ppo
+        hyperparameters:
+          batch_size: 256
+          buffer_size: 4096
+          learning_rate: 0.0003
+          beta: 0.01
+          epsilon: 0.2
+          lambd: 0.95
+          num_epoch: 8
+          learning_rate_schedule: linear
+        network_settings:
+          normalize: true
+          hidden_units: 512
+          num_layers: 2
+          vis_encode_type: simple
+        reward_signals:
+          extrinsic:
+            gamma: 0.99
+            strength: 1.0  
+          curiosity:
+            gamma: 0.99
+            strength: 0.05
+            gamma: 0.99
+            network_settings:
+              hidden_units: 256
+            learning_rate: 0.0003
+        keep_checkpoints: 50
+        max_steps: 5000001
+        time_horizon: 128
+        summary_freq: 30000
+
+    Observaciones:
+
+        Target (x,y,z)
+        Bridge (bool)
+        Bridge (z) 
+        button (x,y,z)
+        Agent  (x,y,z)
+        Agent Vel (x)
+        Agent Vel (z)
+
+        9 rays para no caerse: suelo, switchon, bridge
+        24 rays para el perimetro: paredes, meta, boton
+        camara de 21x21 (20x20x minimo)
+
+    Configuracion entorno: 
+        public bool UseRandomAgentPosition = true;
+        public bool UseRandomAgentRotation = true;
+        public bool UseRandomButtonPosition = false;
+        public bool UseRandomBridgePosition = false;
+        public bool UseRandomGoalPosition = false;
+
+    Rewards:
+        -1 negative:    - failed episode: -1
+        +1 positive:    - Button find: 0.1
+                        - Goal: 0.5
+                        - checkpoint 1 y 2:  0.2
+
+    222 con cosas random y mas raycast
+    182
+test 2:
+    igual pero sin la camara
+    144
+
+test 3:
+    camara 64x64
+    393
+
+test 4:
+    sin raycast
+
+test 5:
+    test 1 pero con agente, puente y boton random
+
+test 6:
+    añadir float para modificar la random_pos de los objetos
+    añadir curriculum learning:
+        - name: Lesson0 # This is the start of the second lesson
+        completion_criteria:
+          measure: reward
+          behavior: Bridge
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.5
+        value: 0.0
+      - name: Lesson1
+        completion_criteria:
+          measure: reward
+          behavior: Bridge
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.6
+        value:
+          sampler_type: uniform
+          sampler_parameters:
+            min_value: 0.0
+            max_value: 0.2
+      - name: Lesson2
+        completion_criteria:
+          measure: reward
+          behavior: Bridge
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.7
+        value:
+          sampler_type: uniform
+          sampler_parameters:
+            min_value: 0.2
+            max_value: 0.5
+      - name: Lesson3
+        completion_criteria:
+          measure: reward
+          behavior: Bridge
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.8
+        value:
+          sampler_type: uniform
+          sampler_parameters:
+            min_value: 0.5
+            max_value: 0.8
+      - name: Lesson4
+        completion_criteria:
+          measure: reward
+          behavior: Bridge
+          signal_smoothing: true
+          min_lesson_length: 100
+          threshold: 0.85
+        value:
+          sampler_type: uniform
+          sampler_parameters:
+            min_value: 0.8
+            max_value: 1.0
+      - name: Lesson5
+        value: 1.0
+
+        a partir del 1.3M añadir recompensa negativa cada paso para hacer que vaya mas rapido a la meta
+        entrenar hasta 1.5M, llega a > 0.9 reward
+        prefiere ir marcha atras despues de pulsar el boton, reducir velocidad al ir marcha atras 0.5
+        1860000. añafir recompensa positiva cada paso para que vaya hacia delante
+        
+
+Test 7:
+    no parece que los raycast detecten bien el puente
+    reducir bservaciones del eje y del boton y del target
+    modificar raycasts para detectar bien el puente y paredes, habia cosas que no detectaba
+    subir un poco el puente
+    cambian boton para que una vez pulsado se quede siempre en verde
+    reward negativo cada step desde el principio
+
+    funciona perfecto, pero soy gilipollas y borre el prefab del agente, me toca entrenarlo de nuevo porque no soy capaz de configurar los raycast igual
+
+test 8:
+    reducir reward a cada paso a -0.5/MaxStep (reducir recompensa negativa por caerse a 0.5?)
+    cambiar lo que puede ver la camara y reorganizar raycast, el resto igual
+
+test 9:
+    aumentar min_lesson_lenght de 100 a 500, cambiaba de leccion muy rapido en cuanto conseguia buena puntuacion
+    
+

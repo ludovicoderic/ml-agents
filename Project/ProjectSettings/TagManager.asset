@@ -30,6 +30,12 @@ TagManager:
   - purpleAgent
   - purpleGoal
   - tile
+  - platform
+  - pushableObject
+  - obstacle
+  - object
+  - checkpoint
+  - trail
   layers:
   - Default
   - TransparentFX
@@ -37,20 +43,20 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - obstacle
+  - agent
   - invisible
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - goal
+  - wall
+  - ground
+  - goalArea
+  - goalObj
+  - object
+  - button
+  - switchOn
+  - switchOff
+  - trail
+  - checkpoint
   - 
   - 
   - 

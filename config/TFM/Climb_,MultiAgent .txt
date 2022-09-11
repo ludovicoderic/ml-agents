@@ -1,0 +1,7 @@
+* Test 1
+  - introducir self play
+         
+* Test 2:
+
+* Test 3:
+    

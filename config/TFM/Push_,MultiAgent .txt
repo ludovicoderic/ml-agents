@@ -1,0 +1,19 @@
+* Test 1
+
+         
+* Test 2:
+    - training normal
+
+* Test 3:
+    - sin obstaculos?
+
+* Test 4:
+    - curriculum, funciona nice
+
+* Test 5:
+  - entrenamiento definitivo 2 agentes
+
+* Test 6:
+  -Probar con 3 agentes
+* Test 7:
+  -Probar con 4 agentes

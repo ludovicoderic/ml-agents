@@ -1,0 +1,50 @@
+finalmultibridge_1
+  cambiando todas las reward y observaciones, quitar checkpoints porque no influye
+  cambiar yaml a similar a pyramids
+  si se cae, set a -1, si completa, set a 1
+  entrenar solo con rewards del boton y target, boton se activa cuando cualquier boton se pulsa, y se da a cada agente
+  reducir tamaño base 1
+  cambiar bridge de obstacle de nuevo a ground
+    añadir recompensa cuando alguno llega a la meta
+  **1M y no pasa de -1.5**
+  
+test2
+  decision requester a 20
+  350m y no pasa ni del segundo checkpoint
+  
+test3
+  añadir recompensas checkpoint (0.2 cada uno) y otra para por moverse si no esta sobre un boton
+  
+test4
+  reducir maxsteps a 5000, 
+  REWARDS: checkpoint 0.4 total, move 0.2, buttonfind 0.5, quitar timepenalty, si no aunque presionara todo el episodio un boton, solo llegaba a -1.5
+  quitar observaciones del otro agente
+  
+test5
+  decision requester a 10, reducir distancia entre areas
+  aumentar peso agente a 50?
+  
+ test 6
+  acercar checkpoints
+  volver a meter observaciones agente
+  aumentar reward boton a 1 
+  hidden layer a 512
+  
+  arreglar checkpoint sistem, que solo funcionaba la primera vez, cambiado al multi agent y recompensas desde el fichero del entorno
+  
+  arreglado algunos tags, y añadidas las recompensas si los agentes pulsan botones y cruzan
+  aumentar maxsteps a 8000
+  
+test 6
+  añadir camara
+  probar gail habiendo completado el episodio 100 veces
+  
+  
+  
+  
+
+  
+
+
+test x+1
+  probar a quitar puente y poner puerta, y ya si funciona cambiarlo
